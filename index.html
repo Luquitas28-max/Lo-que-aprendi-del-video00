@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lo que aprendí del video - Supabase Overview</title>
+  <style>
+    /* VARIABLES DE COLORES Y ESTILOS GLOBALES */
+    :root {
+      --bg-primary: #0f172a;
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #3ecf8e; /* Verde Supabase */
+      --accent-hover: #2dd4bf;
+      --border-color: #334155;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      padding-top: 70px;
+    }
+
+    /* MENÚ DE NAVEGACIÓN FIJO */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+      display: block;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ENCABEZADO DE LA PÁGINA */
+    .hero {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    .student-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-top: 1rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1rem;
+    }
+
+    .student-info span strong {
+      color: var(--text-main);
+    }
+
+    /* SECCIONES Y TARJETAS */
+    section {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 90px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* ESTILO PARA CUESTIONARIO Y TARJETAS PREGUNTA/RESPUESTA */
+    .qa-card {
+      background-color: rgba(15, 23, 42, 0.6);
+      border-left: 4px solid var(--accent-color);
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .qa-card h3 {
+      font-size: 1.05rem;
+      color: #38bdf8;
+      margin-bottom: 0.5rem;
+    }
+
+    .qa-card p {
+      margin-bottom: 0;
+      color: var(--text-main);
+    }
+
+    /* RECURSOS VISUALES E IMÁGENES */
+    .img-container {
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .img-caption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ENLACES Y FUENTES */
+    .source-link {
+      display: inline-block;
+      color: var(--accent-color);
+      text-decoration: none;
+      word-break: break-all;
+      transition: text-decoration 0.2s;
+    }
+
+    .source-link:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    /* DISEÑO ADAPTABLE A MÓVILES */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .nav-links {
+        gap: 0.8rem;
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      body {
+        padding-top: 110px;
+      }
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+      section {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MENÚ DE NAVEGACIÓN -->
+  <header>
+    <nav>
+      <a href="#" class="logo">Supabase Overview</a>
+      <ul class="nav-links">
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#conceptos">Conceptos</a></li>
+        <li><a href="#cuestionario">Cuestionario</a></li>
+        <li><a href="#practica">Aplicación</a></li>
+        <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#fuentes">Fuentes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- ENCABEZADO PRINCIPAL -->
+    <div class="hero">
+      <h1>Lo que aprendí del video</h1>
+      <p>Análisis técnico y práctico sobre el ecosistema y funcionamiento de Supabase</p>
+      
+      <div class="student-info">
+        <span><strong>Alumno:</strong> Lucas Alfredo Lugo Irala</span>
+        <span><strong>Curso y Sección:</strong> 2.° Año - 3.° BTI</span>
+        <span><strong>Asignatura:</strong> Informática / Programación</span>
+      </div>
+    </div>
+
+    <!-- INTRODUCCIÓN -->
+    <section id="introduccion">
+      <h2>1. Introducción</h2>
+      <p>
+        El video analizado en esta actividad es un tutorial práctico presentado por el canal <strong>FaztCode</strong>, centrado en explicar las capacidades, arquitectura y funcionamiento de <strong>Supabase</strong>. Supabase se presenta como una potente plataforma alternativa de código abierto a Firebase (Backend as a Service), diseñada para agilizar el proceso de desarrollo de aplicaciones modernas al simplificar la administración de bases de datos relacionales, autenticación de usuarios, API REST y almacenamiento multimedia en la nube.
+      </p>
+    </section>
+
+    <!-- CONCEPTOS FUNDAMENTALES -->
+    <section id="conceptos">
+      <h2>2. Conceptos Fundamentales</h2>
+      <ul>
+        <li><strong>Backend as a Service (BaaS):</strong> Plataforma en la nube que proporciona servicios e infraestructura de servidor ya listos para usar (autenticación, base de datos, APIs).</li>
+        <li><strong>PostgreSQL:</strong> Sistema de gestión de bases de datos relacional open-source utilizado como núcleo dentro de Supabase para almacenar información estructurada.</li>
+        <li><strong>Row Level Security (RLS):</strong> Característica de seguridad que permite filtrar e imponer reglas de acceso a las filas de la base de datos según el rol o token del usuario autenticado.</li>
+        <li><strong>API REST Automática:</strong> Capacidad de Supabase de generar automáticamente un conjunto de endpoints RESTful a partir de las tablas creadas por el usuario.</li>
+        <li><strong>SDK / Cliente JavaScript:</strong> Librería de código proporcionada por Supabase para conectar y manipular servicios backend directamente desde el código frontend de la aplicación.</li>
+      </ul>
+    </section>
+
+    <!-- CUESTIONARIO RESUEL 
