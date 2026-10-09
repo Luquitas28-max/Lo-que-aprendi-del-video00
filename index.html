@@ -1,21 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lo que aprendí del video - Supabase Overview</title>
+  <title>Supabase Quest Log - Gaming Edition</title>
+
+  <!-- FUENTES GAMING DE GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <style>
-    /* VARIABLES DE COLORES Y ESTILOS GLOBALES */
+    /* VARIABLES RGB Y TEMA GAMER */
     :root {
-      --bg-primary: #0f172a;
-      --bg-card: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent-color: #3ecf8e; /* Verde Supabase */
-      --accent-hover: #2dd4bf;
-      --border-color: #334155;
-      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --bg-dark: #08090d;
+      --bg-card: #10121a;
+      --bg-panel: #161925;
+      --text-main: #f0f3f8;
+      --text-muted: #8b95a5;
+      --accent-green: #00ff66;
+      --font-pixel: 'Press Start 2P', monospace;
+      --font-gamer: 'Chakra Petch', sans-serif;
     }
 
     * {
@@ -24,204 +29,299 @@
       padding: 0;
     }
 
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-main);
-      font-family: var(--font-family);
-      line-height: 1.6;
-      padding-top: 70px;
+    /* ANIMACIÓN BORDES RGB EN MOVIMIENTO */
+    @keyframes rgb-glow {
+      0% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+      25% { border-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
+      50% { border-color: #00ff66; box-shadow: 0 0 15px rgba(0, 255, 102, 0.4); }
+      75% { border-color: #aa00ff; box-shadow: 0 0 15px rgba(170, 0, 255, 0.4); }
+      100% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
     }
 
-    /* MENÚ DE NAVEGACIÓN FIJO */
+    @keyframes text-rgb {
+      0% { color: #ff0055; }
+      33% { color: #00e5ff; }
+      66% { color: #00ff66; }
+      100% { color: #ff0055; }
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(0, 255, 102, 0.08) 0%, transparent 50%),
+        linear-gradient(0deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 4px;
+      color: var(--text-main);
+      font-family: var(--font-gamer);
+      font-size: 1.15rem;
+      line-height: 1.7;
+      padding-top: 90px;
+    }
+
+    /* NAVBAR ESTILO HUD / GAMING MENU */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-color);
+      background: rgba(16, 18, 26, 0.95);
+      border-bottom: 2px solid #00e5ff;
+      animation: rgb-glow 8s infinite linear;
       z-index: 1000;
+      backdrop-filter: blur(10px);
     }
 
     nav {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1.5rem;
     }
 
-    .logo {
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: var(--accent-color);
+    .brand {
+      font-family: var(--font-pixel);
+      font-size: 0.85rem;
+      color: var(--accent-green);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      background: #ff0055;
+      color: #fff;
+      font-size: 0.55rem;
+      padding: 3px 6px;
+      border-radius: 3px;
     }
 
     .nav-links {
       display: flex;
       list-style: none;
-      gap: 1.2rem;
+      gap: 1.5rem;
     }
 
     .nav-links a {
       color: var(--text-main);
       text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
       font-size: 0.95rem;
-      transition: color 0.3s;
+      letter-spacing: 1px;
+      transition: all 0.2s;
     }
 
     .nav-links a:hover {
-      color: var(--accent-color);
+      animation: text-rgb 2s infinite linear;
     }
 
     /* CONTENEDOR PRINCIPAL */
     .container {
-      display: block;
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 2rem auto;
       padding: 0 1.5rem;
     }
 
-    /* ENCABEZADO DE LA PÁGINA */
-    .hero {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
+    /* HERO PROFILE / GAMER CARD */
+    .gamer-profile {
+      background: var(--bg-card);
+      border: 3px solid #ff0055;
+      animation: rgb-glow 6s infinite ease-in-out;
+      border-radius: 8px;
       padding: 2.5rem 2rem;
-      margin-bottom: 2rem;
-      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
     }
 
-    .hero h1 {
-      font-size: 2.2rem;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-    }
-
-    .student-info {
+    .profile-header {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
+      gap: 1rem;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-title h1 {
+      font-family: var(--font-pixel);
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+      animation: text-rgb 4s infinite linear;
+    }
+
+    .profile-title p {
       color: var(--text-muted);
-      font-size: 1rem;
-      margin-top: 1rem;
-      border-top: 1px solid var(--border-color);
-      padding-top: 1rem;
+      font-weight: 600;
     }
 
-    .student-info span strong {
-      color: var(--text-main);
+    .status-tag {
+      background: rgba(0, 255, 102, 0.15);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+      font-family: var(--font-pixel);
+      font-size: 0.65rem;
+      padding: 8px 12px;
+      border-radius: 4px;
     }
 
-    /* SECCIONES Y TARJETAS */
-    section {
-      background-color: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      scroll-margin-top: 90px;
+    .player-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
     }
 
-    h2 {
-      font-size: 1.6rem;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 0.5rem;
+    .stat-box {
+      background: var(--bg-panel);
+      padding: 1rem;
+      border-left: 4px solid #00e5ff;
+      border-radius: 4px;
     }
 
-    p {
-      margin-bottom: 1rem;
-      color: var(--text-main);
-    }
-
-    ul, ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* ESTILO PARA CUESTIONARIO Y TARJETAS PREGUNTA/RESPUESTA */
-    .qa-card {
-      background-color: rgba(15, 23, 42, 0.6);
-      border-left: 4px solid var(--accent-color);
-      padding: 1.2rem;
-      margin-bottom: 1.2rem;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .qa-card h3 {
-      font-size: 1.05rem;
-      color: #38bdf8;
-      margin-bottom: 0.5rem;
-    }
-
-    .qa-card p {
-      margin-bottom: 0;
-      color: var(--text-main);
-    }
-
-    /* RECURSOS VISUALES E IMÁGENES */
-    .img-container {
-      text-align: center;
-      margin: 1.5rem 0;
-    }
-
-    .img-caption {
+    .stat-label {
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 0.5rem;
+      text-transform: uppercase;
+      font-weight: 700;
     }
 
-    /* ENLACES Y FUENTES */
-    .source-link {
-      display: inline-block;
-      color: var(--accent-color);
-      text-decoration: none;
-      word-break: break-all;
-      transition: text-decoration 0.2s;
+    .stat-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
     }
 
-    .source-link:hover {
-      text-decoration: underline;
+    /* SECCIONES Y QUEST CARDS */
+    .quest-section {
+      background: var(--bg-card);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 2.2rem;
+      margin-bottom: 2.5rem;
+      scroll-margin-top: 100px;
     }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border-color);
+    .quest-title {
+      font-family: var(--font-pixel);
+      font-size: 0.95rem;
+      color: var(--accent-green);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.8rem;
+    }
+
+    /* TARJETAS PREGUNTA / RESPUESTA EXTENDIDAS */
+    .quest-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .quest-card:hover {
+      border-color: #00e5ff;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .quest-card h3 {
+      font-family: var(--font-gamer);
+      font-size: 1.25rem;
+      color: #00e5ff;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quest-card h3::before {
+      content: '▶';
+      color: #ff0055;
       font-size: 0.9rem;
     }
 
-    /* DISEÑO ADAPTABLE A MÓVILES */
+    .quest-card p {
+      color: var(--text-main);
+      margin-bottom: 0.8rem;
+    }
+
+    .quest-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* CÓDIGO Y RETRO HUD */
+    pre {
+      background: #050608;
+      border: 2px solid #00ff66;
+      border-radius: 6px;
+      padding: 1.2rem;
+      overflow-x: auto;
+      color: #00ff66;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    /* TABLA Y LISTAS GAMER */
+    ul {
+      list-style: none;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    ul li::before {
+      content: '⚡';
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* FOOTER RGB */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      background: var(--bg-card);
+      border-top: 2px solid #aa00ff;
+      animation: rgb-glow 8s infinite linear;
+      font-family: var(--font-pixel);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
         gap: 0.8rem;
       }
       .nav-links {
-        gap: 0.8rem;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 0.8rem;
       }
       body {
-        padding-top: 110px;
+        padding-top: 130px;
       }
-      .hero h1 {
-        font-size: 1.7rem;
+      .profile-title h1 {
+        font-size: 0.95rem;
       }
-      section {
+      .quest-section {
         padding: 1.2rem;
       }
     }
@@ -229,52 +329,221 @@
 </head>
 <body>
 
-  <!-- MENÚ DE NAVEGACIÓN -->
+  <!-- BARRA DE NAVEGACIÓN HUD GAMING -->
   <header>
     <nav>
-      <a href="#" class="logo">Supabase Overview</a>
+      <a href="#" class="brand">
+        🎮 SUPABASE_QUEST <span class="brand-badge">RGB v2.0</span>
+      </a>
       <ul class="nav-links">
-        <li><a href="#introduccion">Introducción</a></li>
-        <li><a href="#conceptos">Conceptos</a></li>
-        <li><a href="#cuestionario">Cuestionario</a></li>
-        <li><a href="#practica">Aplicación</a></li>
-        <li><a href="#recursos">Recursos</a></li>
-        <li><a href="#fuentes">Fuentes</a></li>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#skills">Conceptos</a></li>
+        <li><a href="#quests">Cuestionario</a></li>
+        <li><a href="#code">Código</a></li>
+        <li><a href="#diagram">HUD Arch</a></li>
       </ul>
     </nav>
   </header>
 
   <div class="container">
-    <!-- ENCABEZADO PRINCIPAL -->
-    <div class="hero">
-      <h1>Lo que aprendí del video</h1>
-      <p>Análisis técnico y práctico sobre el ecosistema y funcionamiento de Supabase</p>
-      
-      <div class="student-info">
-        <span><strong>Alumno:</strong> Lucas Alfredo Lugo Irala</span>
-        <span><strong>Curso y Sección:</strong> 2.° Año - 3.° BTI</span>
-        <span><strong>Asignatura:</strong> Informática / Programación</span>
+
+    <!-- PERFIL DEL JUGADOR / DATOS ALUMNO -->
+    <div class="gamer-profile">
+      <div class="profile-header">
+        <div class="profile-title">
+          <h1>LO QUE APRENDÍ DEL VIDEO</h1>
+          <p>Informe Técnico y Análisis Exhaustivo del Tutorial de Supabase (FaztCode)</p>
+        </div>
+        <div class="status-tag">STATUS: ONLINE / SUBMITTED</div>
+      </div>
+
+      <div class="player-stats">
+        <div class="stat-box">
+          <div class="stat-label">PLAYER / ALUMNO</div>
+          <div class="stat-value">Carlos Martin Salas Bogado</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">LEVEL / CURSO</div>
+          <div class="stat-value">2.° Año - 3.° Sección BTI</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">QUEST / ASIGNATURA</div>
+          <div class="stat-value">Informática y Programación</div>
+        </div>
       </div>
     </div>
 
-    <!-- INTRODUCCIÓN -->
-    <section id="introduccion">
-      <h2>1. Introducción</h2>
+    <!-- SECCIÓN 1: INTRODUCCIÓN -->
+    <section id="intro" class="quest-section">
+      <div class="quest-title"><span>01</span> RESUMEN DE LA MISIÓN (INTRODUCCIÓN)</div>
       <p>
-        El video analizado en esta actividad es un tutorial práctico presentado por el canal <strong>FaztCode</strong>, centrado en explicar las capacidades, arquitectura y funcionamiento de <strong>Supabase</strong>. Supabase se presenta como una potente plataforma alternativa de código abierto a Firebase (Backend as a Service), diseñada para agilizar el proceso de desarrollo de aplicaciones modernas al simplificar la administración de bases de datos relacionales, autenticación de usuarios, API REST y almacenamiento multimedia en la nube.
+        El video analizado corresponde a una sesión de entrenamiento técnico dictada por el canal <strong>FaztCode</strong>, enfocada en desglosar de manera práctica y conceptual la plataforma <strong>Supabase</strong>.
+      </p>
+      <p>
+        En el desarrollo del material se demuestra cómo esta suite <i>Backend as a Service (BaaS)</i> de código abierto revoluciona la manera de construir software moderno. Permite integrar en una sola arquitectura un motor de base de datos relacional potente como <strong>PostgreSQL</strong>, sistemas avanzados de autenticación de usuarios con gestión de roles, alojamiento de archivos multimedia en la nube y generación automática de endpoints RESTful listos para consumir mediante llaves de API seguras.
       </p>
     </section>
 
-    <!-- CONCEPTOS FUNDAMENTALES -->
-    <section id="conceptos">
-      <h2>2. Conceptos Fundamentales</h2>
+    <!-- SECCIÓN 2: CONCEPTOS CLAVE -->
+    <section id="skills" class="quest-section">
+      <div class="quest-title"><span>02</span> HABILIDADES Y CONCEPTOS ADQUIRIDOS</div>
       <ul>
-        <li><strong>Backend as a Service (BaaS):</strong> Plataforma en la nube que proporciona servicios e infraestructura de servidor ya listos para usar (autenticación, base de datos, APIs).</li>
-        <li><strong>PostgreSQL:</strong> Sistema de gestión de bases de datos relacional open-source utilizado como núcleo dentro de Supabase para almacenar información estructurada.</li>
-        <li><strong>Row Level Security (RLS):</strong> Característica de seguridad que permite filtrar e imponer reglas de acceso a las filas de la base de datos según el rol o token del usuario autenticado.</li>
-        <li><strong>API REST Automática:</strong> Capacidad de Supabase de generar automáticamente un conjunto de endpoints RESTful a partir de las tablas creadas por el usuario.</li>
-        <li><strong>SDK / Cliente JavaScript:</strong> Librería de código proporcionada por Supabase para conectar y manipular servicios backend directamente desde el código frontend de la aplicación.</li>
+        <li><strong>Backend as a Service (BaaS):</strong> Paradigma de nube que abstrae la infraestructura del servidor, entregando servicios preconfigurados de base de datos, autenticación y API directos para el desarrollador.</li>
+        <li><strong>PostgreSQL Engine:</strong> Sistema gestor de base de datos relacional open-source de alto rendimiento que estructura la información en tablas relacionales robustas.</li>
+        <li><strong>Row Level Security (RLS):</strong> Mecanismo de seguridad nativo de Postgres que filtra y restringe el acceso fila por fila según los permisos del token de usuario.</li>
+        <li><strong>Auto-Generated REST API:</strong> Generación instantánea de URLs de consulta e interacción que eliminan la necesidad de programar manualmente rutas backend.</li>
+        <li><strong>Supabase JS SDK / Client:</strong> Biblioteca cliente para entornos JavaScript/Node.js que facilita la comunicación asíncrona mediante promesas y métodos intuitivos.</li>
       </ul>
     </section>
 
-    <!-- CUESTIONARIO RESUEL 
+    <!-- SECCIÓN 3: CUESTIONARIO COMPLETO DETALLADO -->
+    <section id="quests" class="quest-section">
+      <div class="quest-title"><span>03</span> CUESTIONARIO RESUELTO (12 PREGUNTAS EXTENDIDAS)</div>
+
+      <div class="quest-card">
+        <h3>1. ¿Cuál es el tema principal del video? Explica de qué trata.</h3>
+        <p>El tema central es la revisión completa y práctica del ecosistema Supabase como plataforma backend moderna. El video enseña a crear un proyecto en la nube desde cero, estructurar bases de datos relacionales con PostgreSQL, gestionar autenticación de usuarios con roles y permisos, almacenar archivos en Storage y conectar la aplicación frontend a la nube utilizando una clave pública de API y una URL de proyecto.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>2. ¿Qué problema o necesidad tecnológica se aborda?</h3>
+        <p>Aborda el alto consumo de tiempo, complejidad e infraestructura que implica desarrollar un servidor backend desde cero. Permite resolver la gestión centralizada de accesos y políticas de seguridad, garantizando que usuarios administradores tengan privilegios especiales para editar datos mientras que los usuarios comunes queden limitados a operaciones de consulta básica.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>3. ¿Cuáles son los cinco conceptos más importantes? Define cada uno.</h3>
+        <p><strong>1. BaaS:</strong> Infraestructura lista en la nube para suplir el servidor backend.<br>
+           <strong>2. PostgreSQL:</strong> Motor relacional de base de datos potente y de código abierto.<br>
+           <strong>3. Row Level Security (RLS):</strong> Seguridad granular a nivel de filas según el rol del usuario.<br>
+           <strong>4. Auto-Generated REST API:</strong> Endpoints creados automáticamente para operaciones CRUD.<br>
+           <strong>5. Storage Buckets:</strong> Contenedores en la nube para guardar imágenes, documentos y archivos multimedia.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>4. ¿Qué herramientas, programas o tecnologías se mencionan y para qué sirven?</h3>
+        <p>Se destacan: <strong>Supabase</strong> (plataforma BaaS), <strong>PostgreSQL</strong> (base de datos relacional), <strong>Firebase</strong> (referencia competitiva de Google), <strong>Node.js / JS</strong> (lenguaje y entorno de cliente), <strong>HTML/CSS</strong> (interfaz de usuario) y <strong>Visual Studio Code</strong> (editor de código para desarrollo).</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>5. ¿Qué procedimientos o pasos se explican? Presentalos en orden.</h3>
+        <p>1. Crear una cuenta y nuevo proyecto dentro del dashboard de Supabase.<br>
+           2. Configurar la estructura de tablas y tipos de datos en el Table Editor.<br>
+           3. Definir y activar las políticas de seguridad RLS (Row Level Security).<br>
+           4. Obtener las credenciales del proyecto (URL y anon public API key).<br>
+           5. Instalar o vincular la librería cliente `@supabase/supabase-js`.<br>
+           6. Realizar operaciones de consulta (`select`), inserción (`insert`) y actualización desde la web.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>6. ¿Qué ejemplos prácticos aparecen? Explica uno detalladamente.</h3>
+        <p>El ejemplo estrella del tutorial es la creación de una aplicación de tareas pendientes (To-Do List). Detalladamente: se crea una tabla llamada 'tasks' con columnas `id`, `title` y `is_completed`. Luego, mediante una función asíncrona en JavaScript, se realiza la petición `await supabase.from('tasks').select('*')` para recibir los datos de la nube en formato JSON y renderizarlos dinámicamente en el navegador.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>7. ¿Qué conocimientos previos son necesarios para comprender lo explicado?</h3>
+        <p>Es indispensable contar con fundamentos de HTML y CSS para la estructura web, JavaScript intermedio (especialmente manejo de promesas, funciones asíncronas `async/await` y manipulación del DOM), así como nociones básicas de bases de datos y arquitectura HTTP.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>8. ¿Qué ventajas o beneficios ofrece la tecnología o procedimiento?</h3>
+        <p>Permite acortar los tiempos de desarrollo de semanas a horas, reduce costos de servidor, utiliza estándar SQL nativo de PostgreSQL, evita el bloqueo por proveedor (*vendor lock-in*) al ser open-source y ofrece un panel de control completamente intuitivo visualmente.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>9. ¿Qué dificultades, errores o precauciones deben considerarse?</h3>
+        <p>La precaución crítica es nunca exponer las llaves secretas de servidor (`service_role key`) en el código frontend. Asimismo, se debe recordar configurar adecuadamente las reglas de seguridad RLS, ya que dejar una tabla pública sin políticas activas permite que cualquier usuario malintencionado edite o elimine información.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>10. ¿Cómo aplicarías lo aprendido en un proyecto informático real?</h3>
+        <p>Lo aplicaría diseñando un portal de gestión de inventarios y proyectos para una institución o empresa. Utilizaría Supabase para autenticar a los miembros, almacenar el catálogo de ítems con sus respectivas fotografías en el Storage y controlar accesos diferenciados entre coordinadores y asistentes.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>11. ¿Qué parte del video consideras más importante y por qué?</h3>
+        <p>La sección del enlace cliente mediante `createClient()`, ya que representa el puente de conexión en tiempo real entre el código de la aplicación y la base de datos alojada en la nube, demostrando el verdadero poder de las APIs de Supabase.</p>
+      </div>
+
+      <div class="quest-card">
+        <h3>12. ¿Qué conocimientos nuevos adquiriste y cómo los explicarías a otra persona?</h3>
+        <p>Aprendí a desplegar una infraestructura backend lista para producción en minutos sin escribir código de servidor tradicional. Le explicaría a un compañero que Supabase es como solicitar una consola de videojuegos lista para jugar: te da la potencia de la base de datos y los controles (APIs) configurados para empezar a crear directamente tu juego (sitio web).</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: CÓDIGO DE MUESTRA -->
+    <section id="code" class="quest-section">
+      <div class="quest-title"><span>04</span> CÓDIGO DE IMPLEMENTACIÓN PRÁCTICA</div>
+      <p>Script de inicialización para consumir servicios de Supabase desde el cliente:</p>
+      <pre>
+// CONEXIÓN AL BACKEND DE SUPABASE
+import { createClient } from '@supabase/supabase-js'
+
+const SUPABASE_URL = 'https://tu-proyecto.supabase.co'
+const SUPABASE_ANON_KEY = 'tu-anon-public-key'
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+// MISION: CONSULTAR REGISTROS DE LA TABLA
+async function fetchGameData() {
+  const { data, error } = await supabase
+    .from('inventory')
+    .select('*')
+
+  if (error) {
+    console.error('Error de lectura:', error.message)
+    return
+  }
+  console.log('Datos cargados exitosamente:', data)
+}
+      </pre>
+    </section>
+
+    <!-- SECCIÓN 5: ARQUITECTURA HUD -->
+    <section id="diagram" class="quest-section">
+      <div class="quest-title"><span>05</span> RECURSOS VISUALES Y ARQUITECTURA</div>
+      <div style="text-align: center; margin-top: 1rem;">
+        <svg width="100%" height="180" viewBox="0 0 600 180" style="background: #08090d; border: 2px solid #00e5ff; border-radius: 6px;">
+          <rect x="20" y="50" width="140" height="80" rx="6" fill="#10121a" stroke="#ff0055" stroke-width="2"/>
+          <text x="90" y="95" fill="#00e5ff" text-anchor="middle" font-family="'Chakra Petch'" font-size="14" font-weight="bold">FRONTEND (CLIENT)</text>
+
+          <path d="M 160 90 L 250 90" stroke="#00ff66" stroke-width="3" stroke-dasharray="5,5" />
+          <text x="205" y="75" fill="#8b95a5" text-anchor="middle" font-family="monospace" font-size="11">API REST</text>
+
+          <rect x="250" y="50" width="140" height="80" rx="6" fill="#10121a" stroke="#00ff66" stroke-width="2"/>
+          <text x="320" y="95" fill="#00ff66" text-anchor="middle" font-family="'Chakra Petch'" font-size="14" font-weight="bold">SUPABASE BAAS</text>
+
+          <path d="M 390 90 L 480 90" stroke="#00ff66" stroke-width="3" stroke-dasharray="5,5" />
+
+          <rect x="480" y="50" width="100" height="80" rx="6" fill="#10121a" stroke="#aa00ff" stroke-width="2"/>
+          <text x="530" y="95" fill="#f0f3f8" text-anchor="middle" font-family="'Chakra Petch'" font-size="13" font-weight="bold">POSTGRES</text>
+        </svg>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.8rem;">Diagrama de flujo de datos: Arquitectura de comunicación entre el Frontend, Supabase BaaS y la BD PostgreSQL.</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: CONCLUSIÓN Y FUENTES -->
+    <section class="quest-section">
+      <div class="quest-title"><span>06</span> CONCLUSIÓN Y REFERENCIAS</div>
+      <p>
+        El estudio sobre Supabase me ha permitido comprender la rápida evolución de la ingeniería de software actual. Herramientas como esta democratizan el desarrollo backend, permitiendo a estudiantes y desarrolladores desplegar soluciones completas, seguras y altamente escalables en tiempo récord.
+      </p>
+      <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+        <p><strong>Fuentes consultadas:</strong></p>
+        <ul>
+          <li><a href="https://youtu.be/pi33WDrgfpI?si=cKvUr2oWYQAnuroo" target="_blank" style="color: #00e5ff;">Tutorial Práctico de Supabase (REST API) - FaztCode en YouTube</a></li>
+          <li><a href="https://supabase.com/docs" target="_blank" style="color: #00e5ff;">Documentación Oficial de Supabase</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER ESTILO HUD -->
+  <footer>
+    <p>🎮 SYSTEM STATUS: ALL SYSTEMS OPERATIONAL</p>
+    <p style="margin-top: 8px;">&copy; 2026 - CARLOS MARTIN SALAS BOGADO | 2.° AÑO 3.° BTI</p>
+  </footer>
+
+</body>
+</html>
+

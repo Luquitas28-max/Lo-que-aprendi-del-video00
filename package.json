@@ -1,8 +1,7 @@
-
 {
-  "name": "tp-supabase-Carlos-Salas",
-  "version": "1.0.0",
-  "description": "Trabajo práctico sobre el video de Supabase",
+  "name": "tp-supabase-carlos-salas",
+  "version": "2.0.0",
+  "description": "Trabajo práctico Gaming RGB sobre el video de Supabase",
   "main": "index.html",
   "scripts": {
     "start": "npx serve ."
